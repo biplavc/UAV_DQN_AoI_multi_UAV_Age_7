@@ -95,7 +95,7 @@ def do_scheduling(deployment, I, scheduler):
 
                     
         if periodic_generation:
-            periodicity = {x:random.choice([2,3,4]) for x in user_list}
+            periodicity = {x:random.choice([3,4]) for x in user_list}
         else:
             periodicity = {x:1 for x in user_list}
         
@@ -137,7 +137,7 @@ def do_scheduling(deployment, I, scheduler):
                     
          
         if periodic_generation:
-            periodicity = {x:random.choice([2,3,4]) for x in user_list}
+            periodicity = {x:random.choice([3,4]) for x in user_list}
         else:
             periodicity = {x:1 for x in user_list}
 
@@ -161,7 +161,6 @@ def do_scheduling(deployment, I, scheduler):
     
     
     if scheduler == "greedy":
-        random.seed(42)
         t1 = time.time()
         #with tf.device('/CPU:0'):
         greedy_overall[I], greedy_final[I], greedy_all_actions[I] = greedy_scheduling(I, drones_coverage, folder_name, deployment, packet_update_loss, packet_sample_loss, periodicity)  
@@ -172,7 +171,6 @@ def do_scheduling(deployment, I, scheduler):
         pickle.dump(greedy_all_actions, open(folder_name + "/" + deployment + "/" + str(I) + "_greedy_all_actions.pickle", "wb")) 
     
     if scheduler == "random":
-        random.seed(42)
         t1 = time.time()
         #with tf.device('/CPU:0'):
         random_overall[I], random_final[I], random_all_actions[I] = random_scheduling(I, drones_coverage, folder_name, deployment, packet_update_loss, packet_sample_loss, periodicity)
@@ -184,7 +182,6 @@ def do_scheduling(deployment, I, scheduler):
         
         
     if scheduler == "MAD":
-        random.seed(42)
         t1 = time.time()
         #with tf.device('/CPU:0'):
         mad_overall[I], mad_final[I], mad_all_actions[I] = mad_scheduling(I, drones_coverage, folder_name, deployment, packet_update_loss, packet_sample_loss, periodicity)
@@ -197,7 +194,6 @@ def do_scheduling(deployment, I, scheduler):
     
 
     if scheduler == "dqn":
-        random.seed(42)
         t1 = time.time()
         dqn_overall[I], dqn_final[I], dqn_all_actions[I] = tf_dqn(I, drones_coverage, folder_name, deployment, packet_update_loss, packet_sample_loss, periodicity)
         t2 = time.time()
@@ -208,7 +204,6 @@ def do_scheduling(deployment, I, scheduler):
 
 
     if scheduler == "c51":
-        random.seed(42)
         t1 = time.time()
         c51_overall[I], c51_final[I], c51_all_actions[I] = tf_c51(I, drones_coverage, folder_name, deployment, packet_update_loss, packet_sample_loss, periodicity)
         t2 = time.time()
@@ -247,13 +242,13 @@ if __name__ == '__main__':
 
     deployments = ["RP"] #, "RP"] #, "MDS"]
     
-    schedulers  = ["dqn", "MAD", "random", "greedy"] ##     scheduler_options  = ["random", "greedy", "MAD", "dqn", "c51"]
+    schedulers  = ["MAD", "dqn", "random", "greedy"] ##     scheduler_options  = ["random", "greedy", "MAD", "dqn", "c51"]
     
     limit_memory = False ## enabling this makes the code notbeing able to find CUDA device
     
 #############################
 
-    experiment = 1
+    experiment = 7
 
     if experiment == 1:
         test_case           = True
