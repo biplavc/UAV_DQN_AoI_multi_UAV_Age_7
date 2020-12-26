@@ -98,10 +98,10 @@ set_gamma = 0.99
 UAV_capacity = 2
 
 BS_capacity = 1
-random_episodes = 1#100_000
+random_episodes = 100_000
 coverage_capacity = 3 # max users 1 UAV can cover, used in create_graph_1
 
-num_iterations = 1#1_000_000
+num_iterations = 1_000_000
 #@param {type:"integer"} # number of times collect_data is called, log_interval and eval_interval are used here. number of times the collect_episodes(...) will run. each collect_episode(...) runs for collect_episodes_per_iteration episodes to fill the buffer. once one iteration is over, the train_env is run on it and then buffer is clear. This value doesn't add to the returns that is showed as the final performance.
 
 # if packet failure occurs independently at each user-UAV and UAV_BS link, the greedy will still keep targetting the most aged user and therefore greedy will still perform well which can be seen in Optimal Scheduling Policy for Minimizing Age of Information with a Relay. Eg with a failure rate 0.5, greedy will keep targetting the most aged which might still fail and it could have been able to reduce the age by targetting some other user. Not sure what will happen with failure rates, lets see.
