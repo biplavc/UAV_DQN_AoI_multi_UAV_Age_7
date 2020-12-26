@@ -1,0 +1,31 @@
+1. Setting up the environment - 
+
+https://towardsdatascience.com/creating-a-custom-environment-for-tensorflow-agent-tic-tac-toe-example-b66902f73059
+
+https://www.tensorflow.org/agents/tutorials/2_environments_tutorial#usage_examples
+
+2. Decayed epsilon -
+
+https://www.tensorflow.org/api_docs/python/tf/compat/v1/train/polynomial_decay?hl=en
+
+https://github.com/tensorflow/agents/blob/v0.6.0/tf_agents/policies/epsilon_greedy_policy.py#L44-L178
+
+https://github.com/tensorflow/agents/issues/300
+
+https://github.com/tensorflow/agents/blob/master/tf_agents/agents/categorical_dqn/examples/train_eval_atari.py   ## implemented a decayed epsilon
+
+https://github.com/tensorflow/agents/issues/339
+
+https://www.tensorflow.org/agents/api_docs/python/tf_agents/agents/DqnAgent
+
+3. Opened github issues -
+
+https://github.com/tensorflow/agents/issues/503
+
+https://github.com/tensorflow/agents/issues/502
+
+4. c51 benefits - 
+
+https://flyyufelix.github.io/2017/10/24/distributional-bellman.html
+
+https://medium.com/@fuller.evan/quantile-reinforcement-learning-56f8b3c3f134
