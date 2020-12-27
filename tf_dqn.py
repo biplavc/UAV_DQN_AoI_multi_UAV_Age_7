@@ -187,7 +187,12 @@ def tf_dqn(I, drones_coverage, folder_name, deployment, packet_update_loss, pack
     
     avg_return = compute_avg_return(eval_env, agent.policy, num_eval_episodes)
     returns = [avg_return]
-
+    UAV_returns = [sum(eval_py_env.UAV_age.values())]
+    # print(vars(eval_py_env))
+    
+    # print(f"UAV_returns = {UAV_returns} and with {eval_py_env.UAV_Age}")
+    # time.sleep(15)
+    
     for _ in range(num_iterations):
 
     # Collect a few steps using collect_policy and save to the replay buffer.
@@ -208,11 +213,14 @@ def tf_dqn(I, drones_coverage, folder_name, deployment, packet_update_loss, pack
             avg_return = compute_avg_return(eval_env, agent.policy, num_eval_episodes)
             # print('step = {0}: Average Return = {1}'.format(step, avg_return), flush =True)
             returns.append(avg_return)
+            UAV_returns.append(sum(eval_py_env.UAV_age.values()))
+            # print(f"UAV_returns = {UAV_returns} and with {eval_py_env.UAV_age}")
+
             
     dqn_returns = returns
     
     pickle.dump(dqn_returns, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_returns.pickle", "wb"))
-    
+    pickle.dump(UAV_returns, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_UAV_returns.pickle", "wb"))
     pickle.dump(final_step_rewards, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_final_step_rewards.pickle", "wb"))
     pickle.dump(eval_py_env.tx_attempt_BS, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_tx_attempt_BS.pickle", "wb"))
     pickle.dump(eval_py_env.tx_attempt_UAV, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_tx_attempt_UAV.pickle", "wb"))

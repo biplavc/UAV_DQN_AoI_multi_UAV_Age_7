@@ -155,7 +155,8 @@ def mad_scheduling(I, drones_coverage, folder_name, deployment, packet_update_lo
     print(f"\nmad started for {I} users , coverage = {drones_coverage} with update_loss = {packet_update_loss}, sample_loss = {packet_sample_loss}, periodicity = {periodicity} and {deployment} deployment", file = open(folder_name + "/results.txt", "a"), flush = True)
     # do scheduling for MAX_STEPS random_episodes times and take the average
     final_step_rewards = []
-    overall_ep_reward = []
+    overall_ep_reward  = []
+    UAV_returns        = []
     
     all_actions = [] # just saving all actions to see the distribution of the actions
     
@@ -322,6 +323,7 @@ def mad_scheduling(I, drones_coverage, folder_name, deployment, packet_update_lo
         
         final_step_rewards.append(final_reward)
         overall_ep_reward.append(ep_reward)
+        UAV_returns.append(sum(eval_env.UAV_age.values()))
         
         if ep==0: ## set up the empty dict with the appropriate keys in the first run
             age_dist_UAV.update(eval_env.UAV_age)
@@ -342,9 +344,9 @@ def mad_scheduling(I, drones_coverage, folder_name, deployment, packet_update_lo
 
         # print("final - age_dist_UAV = ", dd_age_dist_UAV, ", age_dist_BS = ", dd_age_dist_BS)
         
-        
-    pickle.dump(dd_age_dist_UAV, open(folder_name + "/" + deployment + "/" + str(I) + "U_random_age_dist_UAV.pickle", "wb"))
-    pickle.dump(dd_age_dist_BS, open(folder_name + "/" + deployment + "/" + str(I) + "U_random_age_dist_BS.pickle", "wb"))
+    pickle.dump(UAV_returns, open(folder_name + "/" + deployment + "/" + str(I) + "U_mad_UAV_returns.pickle", "wb"))
+    pickle.dump(dd_age_dist_UAV, open(folder_name + "/" + deployment + "/" + str(I) + "U_mad_age_dist_UAV.pickle", "wb"))
+    pickle.dump(dd_age_dist_BS, open(folder_name + "/" + deployment + "/" + str(I) + "U_mad_age_dist_BS.pickle", "wb"))
     
     pickle.dump(attempt_sample, open(folder_name + "/" + deployment + "/" + str(I) + "U_mad_attempt_sample.pickle", "wb"))
     pickle.dump(success_sample, open(folder_name + "/" + deployment + "/" + str(I) + "U_mad_success_sample.pickle", "wb"))
