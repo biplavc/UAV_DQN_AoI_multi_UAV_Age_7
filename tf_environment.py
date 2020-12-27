@@ -95,9 +95,9 @@ sample_error_in_CSI = False ## has no meaning if CSI_as_state=False; if CSI_as_s
 MAX_STEPS = 10 # 20  
 
 set_gamma = 0.99
-UAV_capacity = 2
+UAV_capacity = 5 # L, sample
 
-BS_capacity = 1
+BS_capacity = 3 # K, update
 random_episodes = 100_000
 coverage_capacity = 3 # max users 1 UAV can cover, used in create_graph_1
 
