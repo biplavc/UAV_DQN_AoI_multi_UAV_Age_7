@@ -38,7 +38,7 @@ import multiprocessing as mp
 from parameters import *
 
 random.seed(42)
-
+# tf.random.set_seed(42)
 
 def distributed_run(arguments):
   
@@ -248,7 +248,7 @@ if __name__ == '__main__':
     
 #############################
 
-    experiment = 6
+    experiment = 1
 
     if experiment == 1:
         test_case           = True
