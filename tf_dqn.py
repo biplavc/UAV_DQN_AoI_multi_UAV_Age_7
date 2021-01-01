@@ -5,6 +5,7 @@ from create_graph_1 import *
 
 random.seed(42)
 np.random.seed(42)
+# tf.random.set_seed(42)
 
 ### collect_steps_per_iteration -> collect_episodes_per_iteration
 
