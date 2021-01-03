@@ -64,10 +64,10 @@ def do_scheduling(deployment, I, scheduler):
     if test_case:
         
         ## exp 24
-        print(f"under experiment {experiment}, exp 24 runing", file = open(folder_name + "/results.txt", "a"), flush = True)
+        print(f"under experiment {experiment}", file = open(folder_name + "/results.txt", "a"), flush = True)
 
-        drones_needed           = 3
-        users_per_drone         = [3,3,3]
+        drones_needed           = 1
+        users_per_drone         = [8]
         assert drones_needed    ==len(users_per_drone)
         
         drones_coverage         = []
@@ -248,7 +248,7 @@ if __name__ == '__main__':
     
 #############################
 
-    experiment = 1
+    experiment = 5
 
     if experiment == 1:
         test_case           = True

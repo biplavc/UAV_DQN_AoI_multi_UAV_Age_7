@@ -123,7 +123,7 @@ def find_greedy_action(eval_env): ## maximal age difference
     if verbose:
         print(f"selected_users_overall = {selected_users_overall}")
     
-############################################
+ ############################################
 
     greedy_action = list(itertools.product([updated_users], [selected_users_overall]))
         
@@ -163,7 +163,11 @@ def greedy_scheduling(I, drones_coverage, folder_name, deployment, packet_update
     age_dist_UAV =  {} ## dummpy vars to store age dist for each episode. 
     age_dist_BS  =  {}
 
-
+    sample_time = {}
+    for ii in periodicity.keys():
+        sample_time[ii] = []
+    
+    
     dd_age_dist_UAV = defaultdict(list) ## will be the final age
     dd_age_dist_BS = defaultdict(list) ## will be the final age   
     
@@ -261,6 +265,7 @@ def greedy_scheduling(I, drones_coverage, folder_name, deployment, packet_update
             
             for i in eval_env.user_list: ## sampling
                 if i in sampled_users:
+                    sample_time[i].append(eval_env.current_step)
                     chance_sample_loss = round(random.random(),2)
                     eval_env.tx_attempt_UAV[i][-1] = eval_env.tx_attempt_UAV[i][-1] + 1
                     episode_wise_attempt_sample = episode_wise_attempt_sample + 1
@@ -285,10 +290,12 @@ def greedy_scheduling(I, drones_coverage, folder_name, deployment, packet_update
                         print("user ", i, " was not sampled")
                     eval_env.UAV_age[i] = eval_env.UAV_age[i] + 1
         
-        
+
             ## sampling process done
             if verbose:
+                print(f"time = {eval_env.current_step}, sample_time = {sample_time}")
                 print(f"tx_attempt_UAV has become {eval_env.tx_attempt_UAV} and tx_attempt_BS has become {eval_env.tx_attempt_BS}")
+                time.sleep(10)
            
             if verbose:
                 print(f"\n step = {eval_env.current_step} ended, UAV_age = {eval_env.UAV_age}, BS_age = {eval_env.BS_age}") #
@@ -299,7 +306,7 @@ def greedy_scheduling(I, drones_coverage, folder_name, deployment, packet_update
                     print(f"episode_wise_success_sample = {episode_wise_success_sample}")
                     print(f"episode_wise_attempt_update = {episode_wise_attempt_update}")
                     print(f"episode_wise_success_update = {episode_wise_success_update}")
-                    time.sleep(1)
+                    # time.sleep(1)
             
             if eval_env.current_step==MAX_STEPS:
                 final_reward = np.sum(list(eval_env.BS_age.values()))
@@ -347,8 +354,8 @@ def greedy_scheduling(I, drones_coverage, folder_name, deployment, packet_update
     pickle.dump(UAV_returns, open(folder_name + "/" + deployment + "/" + str(I) + "U_greedy_UAV_returns.pickle", "wb"))
     pickle.dump(dd_age_dist_UAV, open(folder_name + "/" + deployment + "/" + str(I) + "U_greedy_age_dist_UAV.pickle", "wb"))
     pickle.dump(dd_age_dist_BS, open(folder_name + "/" + deployment + "/" + str(I) + "U_greedy_age_dist_BS.pickle", "wb"))
-    # if verbose:
-    
+
+    pickle.dump(eval_env.sample_time, open(folder_name + "/" + deployment + "/" + str(I) + "U_greedy_sample_time.pickle", "wb"))    
     pickle.dump(attempt_sample, open(folder_name + "/" + deployment + "/" + str(I) + "U_greedy_attempt_sample.pickle", "wb"))
     pickle.dump(success_sample, open(folder_name + "/" + deployment + "/" + str(I) + "U_greedy_success_sample.pickle", "wb"))
     pickle.dump(attempt_update, open(folder_name + "/" + deployment + "/" + str(I) + "U_greedy_attempt_update.pickle", "wb"))

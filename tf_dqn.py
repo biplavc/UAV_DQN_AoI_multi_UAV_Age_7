@@ -227,6 +227,7 @@ def tf_dqn(I, drones_coverage, folder_name, deployment, packet_update_loss, pack
     pickle.dump(eval_py_env.tx_attempt_UAV, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_tx_attempt_UAV.pickle", "wb"))
     pickle.dump(eval_py_env.preference, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_preference.pickle", "wb")) 
 
+    pickle.dump(eval_py_env.sample_time, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_sample_time.pickle", "wb"))
 
     pickle.dump(eval_py_env.BS_age, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_BS_age.pickle", "wb")) 
     pickle.dump(eval_py_env.UAV_age, open(folder_name + "/" + deployment + "/" + str(I) + "U_DQN_UAV_age.pickle", "wb"))

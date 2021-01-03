@@ -18,6 +18,12 @@ def random_scheduling(I, drones_coverage, folder_name, deployment, packet_update
     age_dist_UAV =  {} ## dummy vars to store age dist for each episode. 
     age_dist_BS  =  {}
     
+    sample_time = {}
+    for ii in periodicity.keys():
+        sample_time[ii] = []
+    
+    
+    
     attempt_sample = []
     success_sample = []
     attempt_update = []
@@ -128,6 +134,7 @@ def random_scheduling(I, drones_coverage, folder_name, deployment, packet_update
                 
             for i in eval_env.user_list: ## sampling
                 if i in sampled_users:
+                    sample_time[i].append(eval_env.current_step)
                     chance_sample_loss = round(random.random(),2)
                     eval_env.tx_attempt_UAV[i][-1] = eval_env.tx_attempt_UAV[i][-1] + 1
                     episode_wise_attempt_sample = episode_wise_attempt_sample + 1
@@ -155,6 +162,7 @@ def random_scheduling(I, drones_coverage, folder_name, deployment, packet_update
                     
             ## sampling process done
             if verbose:
+                print(f"time = {eval_env.current_step}, sample_time = {sample_time}")
                 print(f"tx_attempt_UAV has become {eval_env.tx_attempt_UAV} and tx_attempt_BS has become {eval_env.tx_attempt_BS}")
            
             if verbose:
@@ -214,6 +222,9 @@ def random_scheduling(I, drones_coverage, folder_name, deployment, packet_update
             
     pickle.dump(UAV_returns, open(folder_name + "/" + deployment + "/" + str(I) + "U_random_UAV_returns.pickle", "wb"))
     pickle.dump(dd_age_dist_UAV, open(folder_name + "/" + deployment + "/" + str(I) + "U_random_age_dist_UAV.pickle", "wb"))
+
+    pickle.dump(eval_env.sample_time, open(folder_name + "/" + deployment + "/" + str(I) + "U_random_sample_time.pickle", "wb"))
+    
     pickle.dump(dd_age_dist_BS, open(folder_name + "/" + deployment + "/" + str(I) + "U_random_age_dist_BS.pickle", "wb"))
     
     pickle.dump(attempt_sample, open(folder_name + "/" + deployment + "/" + str(I) + "U_random_attempt_sample.pickle", "wb"))

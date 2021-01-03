@@ -88,7 +88,7 @@ random.seed(42)
 limit_memory = False
 verbose = False
 # verbose = True
-comet = True
+comet = False
 # comet = True
 CSI_as_state = False
 sample_error_in_CSI = False ## has no meaning if CSI_as_state=False; if CSI_as_state True, this True will mean only UAV CSI is included in state
@@ -187,7 +187,7 @@ class UAV_network(py_environment.PyEnvironment):   # network of UAVs not just a 
         
         attempt_update       : list, index is the episode and the value is the number of times a sample attempt was made. since each sampling results in 1 packet, this value is the number of users selected to sample
         success_update       : list, index is episode and value is the number of sampling attempts that were successful
-        
+        sample_time          : dict, stores the slot at which an user was sampled. To show DQN samples at periods
         
         
         '''
@@ -222,12 +222,13 @@ class UAV_network(py_environment.PyEnvironment):   # network of UAVs not just a 
         self.folder_name    = folder_name
         self.update_loss    = {} ## the dicts will be initialized in start_network
         self.sample_loss    = {}
-        
         self.attempt_sample = []
         self.success_sample = []
         self.attempt_update = []
         self.success_update = []
-
+        self.sample_time    = {} ## goes from 1 to MAX_STEPS inclusive in all cases
+        
+        
         self.start_network(packet_update_loss, packet_sample_loss)
         
         # print(f"sample_loss = {self.sample_loss}, update_loss = {self.update_loss}")
@@ -290,6 +291,9 @@ class UAV_network(py_environment.PyEnvironment):   # network of UAVs not just a 
         
         self.update_loss    = packet_update_loss
         self.sample_loss    = packet_sample_loss
+        
+        for ii in self.user_list:
+            self.sample_time[ii] = []
 
 
         if verbose:
@@ -540,6 +544,7 @@ class UAV_network(py_environment.PyEnvironment):   # network of UAVs not just a 
 
         for i in self.user_list: ## sampling
             if i in sampled_users:
+                self.sample_time[i].append(self.current_step)
                 chance_sample_loss = np.round(random.random(), 2)
                 self.tx_attempt_UAV[i][-1] = self.tx_attempt_UAV[i][-1] + 1
                 self.attempt_sample[-1] = self.attempt_sample[-1] + 1
@@ -565,11 +570,13 @@ class UAV_network(py_environment.PyEnvironment):   # network of UAVs not just a 
                     print("user ", i, " was not sampled")
                 self.UAV_age[i] = self.UAV_age[i] + 1
         
-        # print(f"slot {self.current_step} ended with state {self._state}")
-        # time.sleep(20)
+        # print(f"slot {self.current_step} ended with state {self._state}")        
                 
         if verbose:
+            print(f"time = {self.current_step}, sample_time = {self.sample_time}")
             print(f"{self.name} tx_attempt_UAV has become {self.tx_attempt_UAV}")
+            time.sleep(10)
+
                 
         self._state = self.get_current_state() # update state after every action
         
