@@ -95,7 +95,7 @@ def do_scheduling(deployment, I, scheduler):
 
                     
         if periodic_generation:
-            periodicity = {x:random.choice([3,4]) for x in user_list}
+            periodicity = {10:2,11:3,12:4,13:2,14:3,15:4,16:2,17:3} #{x:random.choice([2,3,4]) for x in user_list}
         else:
             periodicity = {x:1 for x in user_list}
         
@@ -137,7 +137,7 @@ def do_scheduling(deployment, I, scheduler):
                     
          
         if periodic_generation:
-            periodicity = {x:random.choice([3,4]) for x in user_list}
+            periodicity = {x:random.choice([2,3,4]) for x in user_list}
         else:
             periodicity = {x:1 for x in user_list}
 
