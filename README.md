@@ -1,9 +1,9 @@
 # multi_UAV_Age_7
 
-1. state space = [age at UAV, age at BS, update channel quality] as a 1D array.
-2. actions     = two parts per action - (updated UAV, sampled users). Updated UAV will be based on age difference sum of users in that UAV and  sampled user will be with respect to each UAV
 
-3. order of different simulation settings are -
+## DQN based scheduling in two hop UAV assisted IoT networks. Maximal Age Difference best for ideal but DQN is better under non-ideal conditions. DQN implemented using tf-agents.
+
+1. order of different simulation settings are -
     a) multi_UAV_age_1 -> select BS_capacity UAVs to update and choose UAV_capacity users only from those UAVs to sample.
     b) multi_UAV_age_2 -> select BS_capacity UAVs to update and choose UAV_capacity users from any 1 UAV to sample 
 
@@ -17,7 +17,5 @@
     f) multi_UAV_age_6 -> at update step, all users under the same UAV have the same update loss. This makes DQN not perform that well compared to MAD for exp2 so going back to the previous arrangement where each user had unique packet sample and update loss, and will be called multi_UAV_age_7.
 
     g) multi_UAV_age_7 -> packet loss and sample loss unique. See multi_UAV_age_6.
-    
-    h) multi_UAV_age_6 -> at update step, all users under the same UAV have the same update loss. This makes DQN not perform that well compared to MAD for exp2 so going back to the previous arrangement where each user had unique packet sample and update loss.
 
 
