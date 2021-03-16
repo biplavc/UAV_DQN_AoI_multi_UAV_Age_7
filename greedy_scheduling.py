@@ -302,11 +302,11 @@ def greedy_scheduling(I, drones_coverage, folder_name, deployment, packet_update
                 # , tx_attempt_UAV = {eval_env.tx_attempt_UAV}, tx_attempt_BS = {eval_env.tx_attempt_BS}, preference = {eval_env.preference}")
                 
             if verbose:
-                    print(f"episode_wise_attempt_sample = {episode_wise_attempt_sample}")
-                    print(f"episode_wise_success_sample = {episode_wise_success_sample}")
-                    print(f"episode_wise_attempt_update = {episode_wise_attempt_update}")
-                    print(f"episode_wise_success_update = {episode_wise_success_update}")
-                    # time.sleep(1)
+                print(f"episode_wise_attempt_sample = {episode_wise_attempt_sample}")
+                print(f"episode_wise_success_sample = {episode_wise_success_sample}")
+                print(f"episode_wise_attempt_update = {episode_wise_attempt_update}")
+                print(f"episode_wise_success_update = {episode_wise_success_update}")
+                # time.sleep(1)
             
             if eval_env.current_step==MAX_STEPS:
                 final_reward = np.sum(list(eval_env.BS_age.values()))

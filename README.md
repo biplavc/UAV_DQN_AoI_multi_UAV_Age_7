@@ -16,6 +16,6 @@
 
     f) multi_UAV_age_6 -> at update step, all users under the same UAV have the same update loss. This makes DQN not perform that well compared to MAD for exp2 so going back to the previous arrangement where each user had unique packet sample and update loss, and will be called multi_UAV_age_7.
 
-    g) multi_UAV_age_7 -> packet loss and sample loss unique. See multi_UAV_age_6. Periodicity updated (currently periodicity not correct) but not in this repo. 
+    g) multi_UAV_age_7 -> packet loss and sample loss unique. See multi_UAV_age_6. Periodicity updated (periodicity here not correct) but not in this repo. 
 
 
