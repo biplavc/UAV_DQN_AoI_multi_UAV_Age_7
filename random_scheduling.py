@@ -35,7 +35,7 @@ def random_scheduling(I, drones_coverage, folder_name, deployment, packet_update
     
 
     for ep in range(random_episodes): # how many times the random policy will be run, similar to episode
-        
+        print(f"random ep = {ep}")
         ## variables needed for all the episodes
         
         episode_wise_attempt_sample = 0
